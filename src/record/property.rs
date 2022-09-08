@@ -1,7 +1,7 @@
 #![allow(clippy::upper_case_acronyms)]
 
 use std::borrow::Cow;
-use std::collections::HashSet;
+use std::collections::BTreeSet;
 use std::fmt::Display;
 use std::str::FromStr;
 
@@ -22,7 +22,7 @@ pub enum Property {
     /// Object types are built using tags. This makes object management much more powerful and
     /// transparent than with the previous exclusive types. Type and Name are the only properties
     /// which *CANNOT* be predefined in Tacview database.
-    Type(HashSet<Tag>),
+    Type(BTreeSet<Tag>),
 
     /// Parent object id. Useful to associate for example a missile (child object) and
     /// its launcher aircraft (parent object).
@@ -471,7 +471,7 @@ pub enum Color {
     Unknown(String),
 }
 
-#[derive(Debug, Hash, PartialEq, Eq)]
+#[derive(Debug, PartialOrd, Ord, PartialEq, Eq, Hash)]
 pub enum Tag {
     // Class
     Air,
