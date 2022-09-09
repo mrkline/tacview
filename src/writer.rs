@@ -14,7 +14,7 @@ where
 {
     pub fn new(mut wr: W) -> Result<Self, io::Error> {
         writeln!(wr, "FileType=text/acmi/tacview")?;
-        writeln!(wr, "FileVersion=2.2")?;
+        writeln!(wr, "FileVersion=2.1")?;
         Ok(Self { wr })
     }
 
