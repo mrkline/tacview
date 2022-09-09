@@ -42,7 +42,7 @@ impl FromStr for Update {
 
 impl Display for Update {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.id)?;
+        write!(f, "{:x}", self.id)?;
         for p in &self.props {
             write!(f, ",{p}")?;
         }
