@@ -53,6 +53,19 @@ trait Precision {
     fn max_precision(self, max_precision: u32) -> Self;
 }
 
+impl Precision for f32 {
+    fn max_precision(self, max_precision: u32) -> Self {
+        let p = f32::from(10i16.pow(max_precision));
+        (self * p).round() / p
+    }
+}
+
+impl Precision for Option<f32> {
+    fn max_precision(self, max_precision: u32) -> Self {
+        self.map(|v| v.max_precision(max_precision))
+    }
+}
+
 impl Precision for f64 {
     fn max_precision(self, max_precision: u32) -> Self {
         let p = f64::from(10i32.pow(max_precision));
