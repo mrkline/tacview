@@ -956,7 +956,7 @@ impl FromStr for Coords {
     type Err = ParseError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let parts = s.split('|').collect::<Vec<_>>();
+        let parts = s.split('|').collect::<arrayvec::ArrayVec<_, 9>>();
         let mut coords = Coords::default();
         match &parts[..] {
             [longitude, latitude, altitude] => {
