@@ -8,5 +8,6 @@ repository = "https://github.com/rkusa/tacview"
 edition = "2021"
 
 [dependencies]
+arrayvec = "0.7"
 thiserror = "1.0"
 zip = { version = "0.6", default-features = false, features = ["deflate"] }
