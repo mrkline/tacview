@@ -434,6 +434,69 @@ impl Coords {
         }
     }
 
+    /// Given another `Coords`, return one with only the fields that differ.
+    ///
+    /// Useful for making an update as small as possible (only changed fields)
+    pub fn delta(&self, other: &Coords) -> Self {
+        let mut changed = Coords::default();
+
+        changed.longitude = if self.longitude != other.longitude {
+            other.longitude
+        } else {
+            None
+        };
+
+        changed.latitude = if self.latitude != other.latitude {
+            other.latitude
+        } else {
+            None
+        };
+
+        changed.altitude = if self.altitude != other.altitude {
+            other.altitude
+        } else {
+            None
+        };
+
+        changed.u = if self.u != other.u {
+            other.u
+        } else {
+            None
+        };
+
+        changed.v = if self.v != other.v {
+            other.v
+        } else {
+            None
+        };
+
+        changed.roll = if self.roll != other.roll {
+            other.roll
+        } else {
+            None
+        };
+
+        changed.pitch = if self.pitch != other.pitch {
+            other.pitch
+        } else {
+            None
+        };
+
+        changed.yaw = if self.yaw != other.yaw {
+            other.yaw
+        } else {
+            None
+        };
+
+        changed.heading = if self.heading != other.heading {
+            other.heading
+        } else {
+            None
+        };
+
+        changed
+    }
+
     pub fn position(mut self, lat: f64, lon: f64, alt: f64) -> Self {
         self.latitude = Some(lat);
         self.longitude = Some(lon);
