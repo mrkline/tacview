@@ -11,7 +11,7 @@ use crate::ParseError;
 #[derive(Debug, Clone, PartialEq)]
 pub enum Property {
     /// Object Coordinates.
-    T(Box<Coords>),
+    T(Coords),
 
     /// The object name should use the most common notation for each object. It is strongly
     /// recommended to use ICAO or NATO names like: C172 or F/A-18C. This will help Tacview to
@@ -594,7 +594,7 @@ impl FromStr for Property {
         let (name, value) = s.split_once('=').ok_or(ParseError::MissingDelimiter('='))?;
 
         Ok(match name {
-            "T" => Property::T(Box::new(Coords::from_str(value)?)),
+            "T" => Property::T(Coords::from_str(value)?),
             "Name" => Property::Name(value.to_string()),
             "Type" => Property::Type(value.split('+').map(Tag::from).collect()),
             "Parent" => Property::Parent(u64::from_str_radix(value, 16)?),
