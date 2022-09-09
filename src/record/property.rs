@@ -434,6 +434,59 @@ impl Coords {
         }
     }
 
+    /// Given another `Coords`, return one with only the fields that differ.
+    ///
+    /// Useful for making an update as small as possible (only changed fields)
+    pub fn delta(&self, other: &Coords) -> Self {
+        Coords {
+            longitude: if self.longitude != other.longitude {
+                other.longitude
+            } else {
+                None
+            },
+
+            latitude: if self.latitude != other.latitude {
+                other.latitude
+            } else {
+                None
+            },
+
+            altitude: if self.altitude != other.altitude {
+                other.altitude
+            } else {
+                None
+            },
+
+            u: if self.u != other.u { other.u } else { None },
+
+            v: if self.v != other.v { other.v } else { None },
+
+            roll: if self.roll != other.roll {
+                other.roll
+            } else {
+                None
+            },
+
+            pitch: if self.pitch != other.pitch {
+                other.pitch
+            } else {
+                None
+            },
+
+            yaw: if self.yaw != other.yaw {
+                other.yaw
+            } else {
+                None
+            },
+
+            heading: if self.heading != other.heading {
+                other.heading
+            } else {
+                None
+            },
+        }
+    }
+
     pub fn position(mut self, lat: f64, lon: f64, alt: f64) -> Self {
         self.latitude = Some(lat);
         self.longitude = Some(lon);
