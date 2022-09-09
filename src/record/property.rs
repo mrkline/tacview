@@ -382,7 +382,7 @@ pub struct Coords {
     pub latitude: Option<f64>,
 
     /// Unit: m
-    pub altitude: Option<f64>,
+    pub altitude: Option<f32>,
 
     /// Native x coordinate from a flat world.
     pub u: Option<f64>,
@@ -391,16 +391,16 @@ pub struct Coords {
     pub v: Option<f64>,
 
     /// Positive when rolling the aircraft to the right.
-    pub roll: Option<f64>,
+    pub roll: Option<f32>,
 
     /// Positive when taking off.
-    pub pitch: Option<f64>,
+    pub pitch: Option<f32>,
 
     /// Clockwise relative to true north.
-    pub yaw: Option<f64>,
+    pub yaw: Option<f32>,
 
     /// Yaw relative to true north of the flat world.
-    pub heading: Option<f64>,
+    pub heading: Option<f32>,
 }
 
 impl Coords {
@@ -487,7 +487,7 @@ impl Coords {
         }
     }
 
-    pub fn position(mut self, lat: f64, lon: f64, alt: f64) -> Self {
+    pub fn position(mut self, lat: f64, lon: f64, alt: f32) -> Self {
         self.latitude = Some(lat);
         self.longitude = Some(lon);
         self.altitude = Some(alt);
@@ -500,14 +500,14 @@ impl Coords {
         self
     }
 
-    pub fn orientation(mut self, yaw: f64, pitch: f64, roll: f64) -> Self {
+    pub fn orientation(mut self, yaw: f32, pitch: f32, roll: f32) -> Self {
         self.yaw = Some(yaw);
         self.pitch = Some(pitch);
         self.roll = Some(roll);
         self
     }
 
-    pub fn heading(mut self, v: f64) -> Self {
+    pub fn heading(mut self, v: f32) -> Self {
         self.heading = Some(v);
         self
     }
@@ -957,7 +957,7 @@ impl FromStr for Coords {
                     coords.latitude = Some(f64::from_str(latitude)?);
                 }
                 if !altitude.is_empty() {
-                    coords.altitude = Some(f64::from_str(altitude)?);
+                    coords.altitude = Some(f32::from_str(altitude)?);
                 }
             }
             [longitude, latitude, altitude, u, v] => {
@@ -968,7 +968,7 @@ impl FromStr for Coords {
                     coords.latitude = Some(f64::from_str(latitude)?);
                 }
                 if !altitude.is_empty() {
-                    coords.altitude = Some(f64::from_str(altitude)?);
+                    coords.altitude = Some(f32::from_str(altitude)?);
                 }
                 if !u.is_empty() {
                     coords.u = Some(f64::from_str(u)?);
@@ -985,16 +985,16 @@ impl FromStr for Coords {
                     coords.latitude = Some(f64::from_str(latitude)?);
                 }
                 if !altitude.is_empty() {
-                    coords.altitude = Some(f64::from_str(altitude)?);
+                    coords.altitude = Some(f32::from_str(altitude)?);
                 }
                 if !roll.is_empty() {
-                    coords.roll = Some(f64::from_str(roll)?);
+                    coords.roll = Some(f32::from_str(roll)?);
                 }
                 if !pitch.is_empty() {
-                    coords.pitch = Some(f64::from_str(pitch)?);
+                    coords.pitch = Some(f32::from_str(pitch)?);
                 }
                 if !yaw.is_empty() {
-                    coords.yaw = Some(f64::from_str(yaw)?);
+                    coords.yaw = Some(f32::from_str(yaw)?);
                 }
             }
             [longitude, latitude, altitude, roll, pitch, yaw, u, v, heading] => {
@@ -1005,16 +1005,16 @@ impl FromStr for Coords {
                     coords.latitude = Some(f64::from_str(latitude)?);
                 }
                 if !altitude.is_empty() {
-                    coords.altitude = Some(f64::from_str(altitude)?);
+                    coords.altitude = Some(f32::from_str(altitude)?);
                 }
                 if !roll.is_empty() {
-                    coords.roll = Some(f64::from_str(roll)?);
+                    coords.roll = Some(f32::from_str(roll)?);
                 }
                 if !pitch.is_empty() {
-                    coords.pitch = Some(f64::from_str(pitch)?);
+                    coords.pitch = Some(f32::from_str(pitch)?);
                 }
                 if !yaw.is_empty() {
-                    coords.yaw = Some(f64::from_str(yaw)?);
+                    coords.yaw = Some(f32::from_str(yaw)?);
                 }
                 if !u.is_empty() {
                     coords.u = Some(f64::from_str(u)?);
@@ -1023,7 +1023,7 @@ impl FromStr for Coords {
                     coords.v = Some(f64::from_str(v)?);
                 }
                 if !heading.is_empty() {
-                    coords.heading = Some(f64::from_str(heading)?);
+                    coords.heading = Some(f32::from_str(heading)?);
                 }
             }
             _ => return Err(ParseError::InvalidCoordinateFormat),
