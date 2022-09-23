@@ -1,10 +1,12 @@
 use std::{fmt::Display, str::FromStr};
 
+use serde::{Serialize, Deserialize};
+
 use crate::ParseError;
 
 use super::Property;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Update {
     pub id: u64,
     pub props: Vec<Property>,

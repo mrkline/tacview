@@ -5,10 +5,12 @@ use std::collections::BTreeSet;
 use std::fmt::Display;
 use std::str::FromStr;
 
+use serde::{Serialize, Deserialize};
+
 use crate::record::Precision;
 use crate::ParseError;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub enum Property {
     /// Object Coordinates.
     T(Coords),
@@ -373,7 +375,7 @@ pub enum Property {
     Unknown(String, String),
 }
 
-#[derive(Debug, Default, Clone, PartialEq)]
+#[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Coords {
     /// Unit: deg
     pub longitude: Option<f64>,
@@ -513,7 +515,7 @@ impl Coords {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Color {
     Red,
     Orange,
@@ -524,7 +526,7 @@ pub enum Color {
     Unknown(String),
 }
 
-#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialOrd, Ord, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum Tag {
     // Class
     Air,

@@ -1,15 +1,17 @@
 use std::{fmt::Display, str::FromStr};
 
+use serde::{Serialize, Deserialize};
+
 use crate::ParseError;
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Event {
     pub kind: EventKind,
     pub params: Vec<String>,
     pub text: Option<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub enum EventKind {
     /// Generic event.
     Message,

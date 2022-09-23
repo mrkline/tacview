@@ -10,4 +10,5 @@ edition = "2021"
 [dependencies]
 arrayvec = "0.7"
 thiserror = "1.0"
+serde = { version = "1.0", features = ["derive"] }
 zip = { version = "0.6", default-features = false, features = ["deflate"] }
