@@ -9,6 +9,7 @@ use serde::{Serialize, Deserialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Update {
     pub id: u64,
+    #[serde(rename = "pr") ]
     #[serde(skip_serializing_if = "Vec::is_empty")]
     #[serde(default)]
     pub props: Vec<Property>,
