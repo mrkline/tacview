@@ -14,10 +14,15 @@ pub use update::Update;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub enum Record {
+    #[serde(rename="G")]
     GlobalProperty(GlobalProperty),
+    #[serde(rename="E")]
     Event(Event),
+    #[serde(rename="-")]
     Remove(u64),
+    #[serde(rename="F")]
     Frame(f64),
+    #[serde(rename="U")]
     Update(Update),
 }
 
