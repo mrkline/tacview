@@ -1,13 +1,17 @@
 use std::{fmt::Display, str::FromStr};
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use crate::ParseError;
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Event {
     pub kind: EventKind,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    #[serde(default)]
     pub params: Vec<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub text: Option<String>,
 }
 

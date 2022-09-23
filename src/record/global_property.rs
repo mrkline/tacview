@@ -1,6 +1,6 @@
 use std::{fmt::Display, str::FromStr};
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use crate::record::Precision;
 use crate::ParseError;

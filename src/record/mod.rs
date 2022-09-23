@@ -5,7 +5,7 @@ mod update;
 
 use std::fmt::Display;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 pub use event::{Event, EventKind};
 pub use global_property::GlobalProperty;
@@ -14,10 +14,15 @@ pub use update::Update;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum Record {
+    #[serde(rename = "G")]
     GlobalProperty(GlobalProperty),
+    #[serde(rename = "E")]
     Event(Event),
+    #[serde(rename = "-")]
     Remove(u64),
+    #[serde(rename = "F")]
     Frame(f64),
+    #[serde(rename = "U")]
     Update(Update),
 }
 

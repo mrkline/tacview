@@ -5,7 +5,7 @@ use std::collections::BTreeSet;
 use std::fmt::Display;
 use std::str::FromStr;
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use crate::record::Precision;
 use crate::ParseError;
@@ -87,7 +87,7 @@ pub enum Property {
     /// The higher the ratio, the more important is the object is (e.g. locally simulated aircraft
     /// could be 1.0 importance factor).
     /// Unit: ratio
-    Importance(f64),
+    Importance(f32),
 
     /// Plane position in its Group (the lowest is the leader).
     Slot(u64),
@@ -105,270 +105,270 @@ pub enum Property {
     /// combat/dead/destroyed. This attribute as currently no effect on the events, you still need
     /// to remove the object manually whenever it is destroyed.
     /// Unit: ratio
-    Health(f64),
+    Health(f32),
 
     /// Object length. Especially useful when displaying buildings.
     /// Unit: m
-    Length(f64),
+    Length(f32),
 
     /// Object width. Especially useful when displaying buildings.
     /// Unit: m
-    Width(f64),
+    Width(f32),
 
     /// Object height. Especially useful when displaying buildings.
     /// Unit: m
-    Height(f64),
+    Height(f32),
 
     /// Object bounding sphere radius. Object bounding sphere radius. Can be used to define custom
     /// explosion, smoke/grenade radius. Can be animated.
     /// Unit: m
-    Radius(f64),
+    Radius(f32),
 
     /// Indicated airspeed.
     /// Unit: m/s
-    IAS(f64),
+    IAS(f32),
 
     /// Calibrated airspeed.
     /// Unit: m/s
-    CAS(f64),
+    CAS(f32),
 
     /// True airspeed.
     /// Unit: m/s
-    TAS(f64),
+    TAS(f32),
 
     /// Mach number.
     /// Unit: ratio
-    Mach(f64),
+    Mach(f32),
 
     /// Angle of attack.
     /// Unit: deg
-    AOA(f64),
+    AOA(f32),
 
     /// Sideslip angle, also called angle of sideslip.
     /// Unit: deg
-    AOS(f64),
+    AOS(f32),
 
     /// Object altitude above ground level.
     /// Unit: m
-    AGL(f64),
+    AGL(f32),
 
     /// Aircraft heading. When there is no roll and pitch data available, this property can be used
     /// to specify the yaw while keeping full rotation emulation in the 3D view.
     /// Unit: deg
-    HDG(f64),
+    HDG(f32),
 
     /// Aircraft magnetic heading. Heading relative to local magnetic north.
     /// Unit: deg
-    HDM(f64),
+    HDM(f32),
 
     /// Main/engine #1 throttle handle position (could be >1 for Afterburner and <0 for reverse).
     /// Unit: ratio
-    Throttle(f64),
+    Throttle(f32),
 
     /// Main/engine #1 afterburner status.
     /// Unit: ratio
-    Afterburner(f64),
+    Afterburner(f32),
 
     /// Air brakes status.
     /// Unit: ratio
-    AirBrakes(f64),
+    AirBrakes(f32),
 
     /// Flaps position.
     /// Unit: ratio
-    Flaps(f64),
+    Flaps(f32),
 
     /// Landing gear status.
     /// Unit: ratio
-    LandingGear(f64),
+    LandingGear(f32),
 
     /// Landing gear handle position.
     /// Unit: ratio
-    LandingGearHandle(f64),
+    LandingGearHandle(f32),
 
     /// Arresting hook status.
     /// Unit: ratio
-    Tailhook(f64),
+    Tailhook(f32),
 
     /// Parachute status (not to be mistaken for DragChute).
     /// Unit: ratio
-    Parachute(f64),
+    Parachute(f32),
 
     /// Drogue/Drag Parachute status.
     /// Unit: ratio
-    DragChute(f64),
+    DragChute(f32),
 
     /// Fuel quantity currently available in each tanks (up to 10 tanks supported).
     /// Unit: kg
-    FuelWeight(u8, f64),
+    FuelWeight(u8, f32),
 
     /// Fuel quantity currently available in each tanks (up to 10 tanks supported).
     /// Unit: l
-    FuelVolume(u8, f64),
+    FuelVolume(u8, f32),
 
     /// Fuel flow for each engine (up to 8 engines supported).
     /// Unit: kg/hour
-    FuelFlowWeight(u8, f64),
+    FuelFlowWeight(u8, f32),
 
     /// Fuel flow for each engine (up to 8 engines supported).
     /// Unit: l/hour
-    FuelFlowVolume(u8, f64),
+    FuelFlowVolume(u8, f32),
 
     /// Radar mode (0 = off)
-    RadarMode(f64),
+    RadarMode(i64),
 
     /// Radar azimuth (heading) relative to aircraft orientation.
     /// Unit: deg
-    RadarAzimuth(f64),
+    RadarAzimuth(f32),
 
     /// Radar elevation relative to aircraft orientation.
     /// Unit: deg
-    RadarElevation(f64),
+    RadarElevation(f32),
 
     /// Radar roll angle relative to aircraft orientation.
     /// Unit: deg
-    RadarRoll(f64),
+    RadarRoll(f32),
 
     /// Radar scan range.
     /// Unit: m
-    RadarRange(f64),
+    RadarRange(f32),
 
     /// Radar beamwidth in azimuth.
     /// Unit: deg
-    RadarHorizontalBeamwidth(f64),
+    RadarHorizontalBeamwidth(f32),
 
     /// Radar beamwidth in elevation.
     /// Unit: deg
-    RadarVerticalBeamwidth(f64),
+    RadarVerticalBeamwidth(f32),
 
     /// Primary target lock mode (0 = no lock/no target).
-    LockedTargetMode(f64),
+    LockedTargetMode(i64),
 
     /// Primary target azimuth (heading) relative to aircraft orientation.
     /// Unit: deg
-    LockedTargetAzimuth(f64),
+    LockedTargetAzimuth(f32),
 
     /// Primary target elevation relative to aircraft orientation.
     /// Unit: deg
-    LockedTargetElevation(f64),
+    LockedTargetElevation(f32),
 
     /// Primary target distance to aircraft.
     /// Unit: m
-    LockedTargetRange(f64),
+    LockedTargetRange(f32),
 
     /// Enable/disable engagement range (such as when a SAM site turns off its radar) (0 = off).
-    EngagementMode(f64),
+    EngagementMode(i64),
 
     /// Enable/disable engagement range (such as when a SAM site turns off its radar) (0 = off).
-    EngagementMode2(f64),
+    EngagementMode2(i64),
 
     /// Engagement range for anti-aircraft units. This is the radius of the sphere which will be
     /// displayed in the 3D view. Typically used for SAM and AAA units, but this can be also
     /// relevant to warships.
     /// Unit: m
-    EngagementRange(f64),
+    EngagementRange(f32),
 
     /// Engagement range for anti-aircraft units. This is the radius of the sphere which will be
     /// displayed in the 3D view. Typically used for SAM and AAA units, but this can be also
     /// relevant to warships.
     /// Unit: m
-    EngagementRange2(f64),
+    EngagementRange2(f32),
 
     /// Engagement range for anti-aircraft units. This is the radius of the sphere which will be
     /// displayed in the 3D view. Typically used for SAM and AAA units, but this can be also
     /// relevant to warships.
     /// Unit: m
-    VerticalEngagementRange(f64),
+    VerticalEngagementRange(f32),
 
     /// Engagement range for anti-aircraft units. This is the radius of the sphere which will be
     /// displayed in the 3D view. Typically used for SAM and AAA units, but this can be also
     /// relevant to warships.
     /// Unit: m
-    VerticalEngagementRange2(f64),
+    VerticalEngagementRange2(f32),
 
     /// Raw player HOTAS/Yoke position in real-life (flight sim input device).
     /// Unit: ratio
-    RollControlInput(f64),
+    RollControlInput(f32),
 
     /// Raw player HOTAS/Yoke position in real-life (flight sim input device).
     /// Unit: ratio
-    PitchControlInput(f64),
+    PitchControlInput(f32),
 
     /// Raw player HOTAS/Yoke position in real-life (flight sim input device).
     /// Unit: ratio
-    YawControlInput(f64),
+    YawControlInput(f32),
 
     /// HOTAS/Yoke position in simulated (with response curves) or real-life cockpit.
     /// Unit: ratio
-    RollControlPosition(f64),
+    RollControlPosition(f32),
 
     /// HOTAS/Yoke position in simulated (with response curves) or real-life cockpit.
     /// Unit: ratio
-    PitchControlPosition(f64),
+    PitchControlPosition(f32),
 
     /// HOTAS/Yoke position in simulated (with response curves) or real-life cockpit.
     /// Unit: ratio
-    YawControlPosition(f64),
+    YawControlPosition(f32),
 
     /// Trim position for each axis.
     /// Unit: ratio
-    RollTrimTab(f64),
+    RollTrimTab(f32),
 
     /// Trim position for each axis.
     /// Unit: ratio
-    PitchTrimTab(f64),
+    PitchTrimTab(f32),
 
     /// Trim position for each axis.
     /// Unit: ratio
-    YawTrimTab(f64),
+    YawTrimTab(f32),
 
     /// Control surfaces position on the aircraft.
     /// Unit: ratio
-    AileronLeft(f64),
+    AileronLeft(f32),
 
     /// Control surfaces position on the aircraft.
     /// Unit: ratio
-    AileronRight(f64),
+    AileronRight(f32),
 
     /// Control surfaces position on the aircraft.
     /// Unit: ratio
-    Elevator(f64),
+    Elevator(f32),
 
     /// Control surfaces position on the aircraft.
     /// Unit: ratio
-    Rudder(f64),
+    Rudder(f32),
 
     /// Pilot head orientation in the cockpit relative to the aircraft orientation
     /// Unit: ratio
-    PilotHeadRoll(f64),
+    PilotHeadRoll(f32),
 
     /// Pilot head orientation in the cockpit relative to the aircraft orientation
     /// Unit: ratio
-    PilotHeadPitch(f64),
+    PilotHeadPitch(f32),
 
     /// Pilot head orientation in the cockpit relative to the aircraft orientation
     /// Unit: ratio
-    PilotHeadYaw(f64),
+    PilotHeadYaw(f32),
 
     /// Gravitational force equivalent of the acceleration in each axis relative to the aircraft
     /// orientation
     /// Unit: g
-    VerticalGForce(f64),
+    VerticalGForce(f32),
 
     /// Gravitational force equivalent of the acceleration in each axis relative to the aircraft
     /// orientation
     /// Unit: g
-    LongitudinalGForce(f64),
+    LongitudinalGForce(f32),
 
     /// Gravitational force equivalent of the acceleration in each axis relative to the aircraft
     /// orientation
     /// Unit: g
-    LateralGForce(f64),
+    LateralGForce(f32),
 
     /// Ratio between 0 and 1 describing the current Environmental Noise Level measured by the
     /// flight recorder. Typically used by gliders to detect engine use. This is the equivalent of
     /// the ENL field which can be found in IGC files.
     /// Unit: ratio
-    ENL(f64),
+    ENL(f32),
 
     /// Unknown property. This only exists for forward compatibility and using it is not recommended
     /// as the property you are using could be move to the known properties in a future release.
@@ -378,30 +378,55 @@ pub enum Property {
 #[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Coords {
     /// Unit: deg
+    #[serde(rename = "lon")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub longitude: Option<f64>,
 
     /// Unit: deg
+    #[serde(rename = "lat")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub latitude: Option<f64>,
 
     /// Unit: m
+    #[serde(rename = "alt")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub altitude: Option<f32>,
 
     /// Native x coordinate from a flat world.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub u: Option<f64>,
 
     /// Native y coordinate from a flat world.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub v: Option<f64>,
 
     /// Positive when rolling the aircraft to the right.
+    #[serde(rename = "r")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub roll: Option<f32>,
 
     /// Positive when taking off.
+    #[serde(rename = "p")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub pitch: Option<f32>,
 
     /// Clockwise relative to true north.
+    #[serde(rename = "y")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub yaw: Option<f32>,
 
     /// Yaw relative to true north of the flat world.
+    #[serde(rename = "h")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub heading: Option<f32>,
 }
 
@@ -667,7 +692,7 @@ impl FromStr for Property {
             "FuelFlowVolume6" => Property::FuelFlowVolume(5, FromStr::from_str(value)?),
             "FuelFlowVolume7" => Property::FuelFlowVolume(6, FromStr::from_str(value)?),
             "FuelFlowVolume8" => Property::FuelFlowVolume(7, FromStr::from_str(value)?),
-            "RadarMode" => Property::RadarMode(FromStr::from_str(value)?),
+            "RadarMode" => Property::RadarMode(i64::from_str(value)?),
             "RadarAzimuth" => Property::RadarAzimuth(FromStr::from_str(value)?),
             "RadarElevation" => Property::RadarElevation(FromStr::from_str(value)?),
             "RadarRoll" => Property::RadarRoll(FromStr::from_str(value)?),
@@ -676,12 +701,12 @@ impl FromStr for Property {
                 Property::RadarHorizontalBeamwidth(FromStr::from_str(value)?)
             }
             "RadarVerticalBeamwidth" => Property::RadarVerticalBeamwidth(FromStr::from_str(value)?),
-            "LockedTargetMode" => Property::LockedTargetMode(FromStr::from_str(value)?),
+            "LockedTargetMode" => Property::LockedTargetMode(i64::from_str(value)?),
             "LockedTargetAzimuth" => Property::LockedTargetAzimuth(FromStr::from_str(value)?),
             "LockedTargetElevation" => Property::LockedTargetElevation(FromStr::from_str(value)?),
             "LockedTargetRange" => Property::LockedTargetRange(FromStr::from_str(value)?),
-            "EngagementMode" => Property::EngagementMode(FromStr::from_str(value)?),
-            "EngagementMode2" => Property::EngagementMode2(FromStr::from_str(value)?),
+            "EngagementMode" => Property::EngagementMode(i64::from_str(value)?),
+            "EngagementMode2" => Property::EngagementMode2(i64::from_str(value)?),
             "EngagementRange" => Property::EngagementRange(FromStr::from_str(value)?),
             "EngagementRange2" => Property::EngagementRange2(FromStr::from_str(value)?),
             "VerticalEngagementRange" => {

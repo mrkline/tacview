@@ -1,6 +1,6 @@
 use std::{fmt::Display, str::FromStr};
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use crate::ParseError;
 
@@ -9,6 +9,7 @@ use super::Property;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Update {
     pub id: u64,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub props: Vec<Property>,
 }
 
