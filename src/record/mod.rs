@@ -5,12 +5,14 @@ mod update;
 
 use std::fmt::Display;
 
+use serde::{Serialize, Deserialize};
+
 pub use event::{Event, EventKind};
 pub use global_property::GlobalProperty;
 pub use property::{Color, Coords, Property, Tag};
 pub use update::Update;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub enum Record {
     GlobalProperty(GlobalProperty),
     Event(Event),

@@ -4,7 +4,9 @@ use crate::ParseError;
 
 use super::Property;
 
-#[derive(Debug)]
+use serde::{Serialize, Deserialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Update {
     pub id: u64,
     pub props: Vec<Property>,

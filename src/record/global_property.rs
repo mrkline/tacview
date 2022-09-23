@@ -1,9 +1,11 @@
 use std::{fmt::Display, str::FromStr};
 
+use serde::{Serialize, Deserialize};
+
 use crate::record::Precision;
 use crate::ParseError;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub enum GlobalProperty {
     /// Source simulator, control station or file format.
     DataSource(String),
