@@ -20,7 +20,7 @@ pub enum Record {
     Event(Event),
     #[serde(rename = "-")]
     Remove(u64),
-    #[serde(rename = "F")]
+    #[serde(rename = "#")]
     Frame(f64),
     #[serde(rename = "U")]
     Update(Update),

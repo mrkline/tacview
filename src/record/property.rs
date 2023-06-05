@@ -376,58 +376,50 @@ pub enum Property {
 }
 
 #[derive(Debug, Default, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(into = "[Option<f64>; 9]")]
 pub struct Coords {
     /// Unit: deg
-    #[serde(rename = "lon")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     pub longitude: Option<f64>,
 
     /// Unit: deg
-    #[serde(rename = "lat")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     pub latitude: Option<f64>,
 
     /// Unit: m
-    #[serde(rename = "alt")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     pub altitude: Option<f32>,
 
     /// Native x coordinate from a flat world.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     pub u: Option<f64>,
 
     /// Native y coordinate from a flat world.
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     pub v: Option<f64>,
 
     /// Positive when rolling the aircraft to the right.
-    #[serde(rename = "r")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     pub roll: Option<f32>,
 
     /// Positive when taking off.
-    #[serde(rename = "p")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     pub pitch: Option<f32>,
 
     /// Clockwise relative to true north.
-    #[serde(rename = "y")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     pub yaw: Option<f32>,
 
     /// Yaw relative to true north of the flat world.
-    #[serde(rename = "h")]
-    #[serde(skip_serializing_if = "Option::is_none")]
-    #[serde(default)]
     pub heading: Option<f32>,
+}
+
+impl Into<[Option<f64>; 9]> for Coords {
+    fn into(self) -> [Option<f64>; 9] {
+        [
+            self.longitude,
+            self.latitude,
+            self.altitude.map(|f| f.into()),
+            self.u,
+            self.v,
+            self.pitch.map(|f| f.into()),
+            self.roll.map(|f| f.into()),
+            self.yaw.map(|f| f.into()),
+            self.heading.map(|f| f.into()),
+        ]
+    }
 }
 
 impl Coords {
